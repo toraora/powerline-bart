@@ -3,11 +3,18 @@ import urllib2
 import time
 
 def etd(pl):
+    if is_no_show_hours():
+        return [{'contents': ''}]
     try:
         content = get_next_arrivals()
         return [{'contents': content}]
     except:
         return [{'contents': ''}]
+
+def is_no_show_hours():
+    hour = int(time.strftime('%H'))
+    weekday = int(time.strftime('%w'))
+    return (weekday is 0 or weekday is 6) or (hour > 11 and hour < 17)
 
 def is_after_noon():
     hour = int(time.strftime('%H'))
@@ -21,10 +28,11 @@ def get_next_arrivals():
         show.append(wrap_get_etd('dbrk', 'mlbr', 'DBRK'))
     else:
         show.append(u'\ue617')
-        show.append(wrap_get_etd('civc', 'dubl', 'DUBL'))
         show.append(wrap_get_etd('civc', 'warm', 'WARM'))
-        show.append(wrap_get_etd('civc', 'dbrk', 'DBRK'))
+        show.append(wrap_get_etd('civc', 'rich', 'RICH'))
+        show.append(wrap_get_etd('civc', 'dubl', 'DUBL'))
         show.append(wrap_get_etd('civc', 'antc', 'ANTC'))
+        show.append(wrap_get_etd('civc', 'phil', 'PHIL'))
     return ' '.join([s for s in show if s])
 
 def wrap_get_etd(orig, dest, pref):
