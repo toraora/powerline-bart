@@ -28,11 +28,20 @@ def get_next_arrivals():
         show.append(wrap_get_etd('dbrk', 'mlbr', 'DBRK'))
     else:
         show.append(u'\ue617')
-        show.append(wrap_get_etd('civc', 'warm', 'WARM'))
-        show.append(wrap_get_etd('civc', 'rich', 'RICH'))
-        show.append(wrap_get_etd('civc', 'dubl', 'DUBL'))
-        show.append(wrap_get_etd('civc', 'antc', 'ANTC'))
-        show.append(wrap_get_etd('civc', 'phil', 'PHIL'))
+        warm = wrap_get_etd('civc', 'warm', 'WARM')
+        if warm:
+            show.append(warm)
+        else:
+            show.append(wrap_get_etd('civc', 'dubl', 'DUBL'))
+
+        rich = wrap_get_etd('civc', 'rich', 'RICH')
+        if rich:
+            show.append(rich)
+        else:
+            show.append(wrap_get_etd('civc', 'antc', 'ANTC'))
+            show.append(wrap_get_etd('civc', 'phil', 'PHIL'))
+            show.append(wrap_get_etd('civc', 'pitt', 'PITT'))
+            show.append(wrap_get_etd('civc', 'ncon', 'NCON'))
     return ' '.join([s for s in show if s])
 
 def wrap_get_etd(orig, dest, pref):
