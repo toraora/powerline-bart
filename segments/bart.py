@@ -14,7 +14,7 @@ def etd(pl):
 def is_no_show_hours():
     hour = int(time.strftime('%H'))
     weekday = int(time.strftime('%w'))
-    return (weekday is 0 or weekday is 6) or (hour > 11 and hour < 17)
+    return (weekday is 0 or weekday is 6) or (hour >= 11 and hour <= 17)
 
 def is_after_noon():
     hour = int(time.strftime('%H'))
